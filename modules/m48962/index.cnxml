@@ -1,0 +1,98 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Appendix 4:  Contributors to the Speak N Spell program</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m48962</md:content-id>
+  <md:title>Appendix 4:  Contributors to the Speak N Spell program</md:title>
+  <md:abstract>There were many individuals who contributed to the success of the Speak N Spell.  This list should show the breadth of capabilities needed to successfully take the Speak N Spell from an idea to a product on the retailer's shelf.</md:abstract>
+  <md:uuid>25a6dbaf-ff5c-49d9-8dad-d2a8a4be06c8</md:uuid>
+</metadata>
+
+<content>
+    <para id="import-auto-id1171050027786">Exhaustive list of people who worked on the Speak N Spell program</para>
+    <para id="import-auto-id1171049797378">It is important to acknowledge as many of the individuals as possible who contributed to the success of the Speak N Spell program.  Here is that list.  </para>
+    <para id="import-auto-id1171047630336">
+      <emphasis effect="bold">Original team</emphasis>
+    </para>
+    <list id="import-auto-id1171050676746" list-type="bulleted">
+      <item><emphasis effect="bold">Paul Breedlove:</emphasis>  Paul was the originator of the idea and was the original Program Manager for the Speak &amp; Spell™.  </item>
+      <item><emphasis effect="bold">Richard Wiggins:</emphasis>  Richard was responsible for developing the speech synthesis algorithm used in Speak &amp; Spell™ and for the software that produced the data used to generate the spoken words using the speech synthesis Integrated Circuit.</item>
+      <item><emphasis effect="bold">Larry Brantingham:</emphasis>  Larry was responsible for the architecture of the four Integrated Circuits used in the Speak &amp; Spell™.  Together Richard and Larry created the world’s first Digital Speech Synthesis device.</item>
+      <item><emphasis effect="bold">Gene Frantz:</emphasis>  Gene was responsible for the system design and became the Program Manager after Paul was moved to another program.  He also was responsible for taking the Speak &amp; Spell™ into production.  </item>
+    </list>
+    <para id="import-auto-id1171049808162">
+      <emphasis effect="bold">Research</emphasis>
+    </para>
+    <list id="import-auto-id1171048645701" list-type="bulleted">
+      <item><emphasis effect="bold">George Doddington:</emphasis>  Head of the Speech Research laboratory, part of the Central Research Laboratories (CRL), at TI.  Richard reported to him.  The first demonstration of the Speak N Spell used George’s voice.  He would have done well as the production voice but it was decided to hire a professional speaker rather than an internal individual.</item>
+      <item><emphasis effect="bold">Gene Helms:</emphasis>  I called him “Gene Helms the elder”.  He was head of the Corporate Engineering Center (CEC), a sister organization to the Central Research Laboratory (CRL).  </item>
+      <item><emphasis effect="bold">Gene Helms:</emphasis>  I called him “Gene Helms the lesser”.  He worked with Richard to develop the various software systems that processed speech data and generated and optimized the ROM data that generated the high quality speech from small amounts of data.</item>
+    </list>
+    <para id="import-auto-id1171047665535">
+      <emphasis effect="bold">Product Development</emphasis>
+    </para>
+    <list id="import-auto-id1171048592351" list-type="bulleted">
+      <item><emphasis effect="bold">W. R. Hawkins:</emphasis>  Mechanical engineering manager.  When it seemed appropriate, I reported to him or he reported to me.</item>
+      <item><emphasis effect="bold">Richard Chang:</emphasis>  Designed the plastic case.  Richard reported to W. R.  After the program was over, Richard moved back to Dallas to get his doctorate degree from SMU.</item>
+      <item><emphasis effect="bold">Ajay Puri:</emphasis>  Electrical engineer who reported to me.  He later left TI and got his MBA at Harvard University.  One of the case studies he had to read was the one on the Speak N Spell.</item>
+      <item><emphasis effect="bold">Gene Sulik:</emphasis>  Industrial design.  Gene was responsible for the concept design</item>
+      <item><emphasis effect="bold">Glen Thornton:</emphasis>  Responsible for writing the software on the TMC0271 and formatting the ROMs to pack the necessary data for the product to work.</item>
+      <item><emphasis effect="bold">Jim Moore:</emphasis>  Jim was Paul’s boss and collaborated with Paul to invent the Speak N Spell idea.</item>
+    </list>
+    <para id="import-auto-id1171049564703">
+      <emphasis effect="bold">Speech Processing</emphasis>
+    </para>
+    <list id="import-auto-id1171049837202" list-type="bulleted">
+      <item><emphasis effect="bold">Kathy Goudie Marshall:</emphasis>  Speech linguist</item>
+      <item><emphasis effect="bold">Mai Vinson:</emphasis>  French speech editor</item>
+      <item><emphasis effect="bold">Uta:</emphasis>  German speech editor</item>
+      <item><emphasis effect="bold">Vicki Smith:</emphasis>  English speech editor</item>
+      <item/>
+      <item><emphasis effect="bold">Doug Wickey:</emphasis>  English speech editor</item>
+      <item><emphasis effect="bold">Mary Marimontes:</emphasis>  Spanish speech editor</item>
+    </list>
+    <para id="import-auto-id1171047630656">
+      <emphasis effect="bold">IC Design</emphasis>
+    </para>
+    <list id="import-auto-id1171047634276" list-type="bulleted">
+      <item><emphasis effect="bold">K. Bala:</emphasis> IC design manager in Houston</item>
+      <item><emphasis effect="bold">Alva Henderson:</emphasis>  Architecture team in Lubbock.  Alva built the three simulators that were used for the software development and many product demonstrations.  Alva reported to Larry.</item>
+    </list>
+    <para id="import-auto-id1171050675156">
+      <emphasis effect="bold">Production start up</emphasis>
+    </para>
+    <list id="import-auto-id1171047705155" list-type="bulleted">
+      <item><emphasis effect="bold">Eugene “Mitch” Mitchell:</emphasis>  Mitch was the Product Engineering Manager in Midland Texas where we ramped the Speak N Spell into production.</item>
+      <item>
+        <emphasis effect="bold">Ron Shelly:  Ron was a Vice President.  As I remember he was in charge of manufacturing. He later became my boss.  I still think of him with great respect.</emphasis>
+      </item>
+      <item>
+        <emphasis effect="bold">Ron Web:  Ron was the quality control manager for the Consumer Group.</emphasis>
+      </item>
+      <item>
+        <emphasis effect="bold">Dick Jensen:  Dick was the quality control engineer that took the preproduction devices and qualified the product before shipping.  He helped us through several significant issues including key breakage, static discharge failure and drop test failures.</emphasis>
+      </item>
+    </list>
+    <para id="import-auto-id1171047820756">
+      <emphasis effect="bold">Market development</emphasis>
+    </para>
+    <list id="import-auto-id1171049520999" list-type="bulleted">
+      <item><emphasis effect="bold">Alecia Helton:  </emphasis>  Alecia was responsible for the educational soundness of Speak N Spell and the children's books that accompanied the product.  She described what she did during the recording and verification process to assure correct pronunciation as "maximizing the intelligibility of the synthesized speech within the technical parameters".  </item>
+      <item><emphasis effect="bold">Ralph A. Oliva:</emphasis>  Marketing Communications Manager and Alecia's boss.  Ralph had overall responsibility for the marketing communications and advertising programs for Speak N Spell.</item>
+      <item><emphasis effect="bold">Bryce Armstrong:</emphasis>  Original voice to demonstrate various personalities of the product.</item>
+      <item><emphasis effect="bold">Hank Carr:</emphasis>  The voice of the Speak N Spell.  He had a “boring” LPC voice just like George Doddington and me (Gene).</item>
+      <item><emphasis effect="bold">William Kottmeyer:</emphasis>  Spelling expert who provided the vocabulary list.</item>
+    </list>
+    <para id="import-auto-id1171048676097">
+      <emphasis effect="bold">Corporate Support</emphasis>
+    </para>
+    <list id="import-auto-id1171050192430" list-type="bulleted">
+      <item><emphasis effect="bold">Andrew Dillon:</emphasis>  Patent Lawyer</item>
+      <item><emphasis effect="bold">Robert Marshall:</emphasis>  Patent Lawyer</item>
+      <item><emphasis effect="bold">Wally Rhines:</emphasis>  Calculator Division IC design manager</item>
+      <item><emphasis effect="bold">Fred Bucy:</emphasis> TI’s CEO</item>
+      <item><emphasis effect="bold">George Heilmeyer:</emphasis> TI’s CTO</item>
+      <item><emphasis effect="bold">Bill Sick:</emphasis>  One of the Calculator Division Business Managers during the time of the development.</item>
+      <item><emphasis effect="bold">Ron Richie:</emphasis>  One of the Calculator Division Business Managers during the time of the development.</item>
+    </list>
+  </content>
+</document>

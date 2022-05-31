@@ -1,0 +1,260 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+
+<title>Appendix 3:  Data Packing</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m46085</md:content-id>
+  <md:title>Appendix 3:  Data Packing</md:title>
+  <md:abstract>This appendix explains how the Speak and Spell speech data was packed in the ROM code.  It takes the coded data for a spoken word and shows the process of packing it into a set of data that would be found in the ROM code.</md:abstract>
+  <md:uuid>3091741b-22b2-428e-aac3-d5048aa4b19f</md:uuid>
+</metadata>
+
+<content>
+  <section id="eip-349"><title>Introduction</title><para id="eip-518">A detail worth spending time on is how the speech data was packed into the ROM.  An example of how it was done is shown in the following four figures (Figures 1 - 4). Figure 1 is an overview of the packing algorithm that I put together for a presentation on this topic. Figures 2 and 3 show the coded data for the word "cage".  The coded data was taken from the information at the top of Figure 4.  When the packing process was completed as shown in Figures 2 and 3, the resulting data matches the information in the bottom part of Figure 4.  I am relatively certain that just using the four figures won't help much in understanding the process.  So, I will pull excerpts from Figures 2 and 3 and use them to explain the process. </para></section><para id="eip-738"><figure id="overview"><media id="import-auto-id119410" alt="">
+		<image mime-type="image/jpeg" src="../../media/Data packing 1.jpg" height="1000" width="800"/>
+	</media>
+	<caption>An overview of how the encoded speech data was stored in memory.  </caption></figure></para><para id="eip-375"><figure id="detaila"><media id="import-auto-id119411" alt="">
+		<image mime-type="image/jpeg" src="../../media/Data packing 2.jpg" height="1000" width="800"/>
+	</media>
+	<caption>First page of encoded data for the word "cage" (frame number, energy, repeat, pitch, K1 - k6).</caption></figure></para><para id="eip-612"><figure id="page2"><media id="import-auto-id1194150" alt="">
+		<image mime-type="image/jpeg" src="../../media/Data packing 3.jpg" height="1000" width="800"/>
+	</media>
+	<caption>Page 2 of encoded data for the word "cage" (K7 - K10)</caption></figure></para><para id="eip-134"><figure id="Computerprintout"><media id="import-auto-id11941780" alt="">
+		<image mime-type="image/jpeg" src="../../media/Data packing 4.jpg" height="1000" width="800"/>
+	</media>
+	<caption>Computer printout showing the intitial encoded data and the final packed data for the word "cage"</caption></figure></para><para id="eip-610">The top set of data in Figure 4 is the parametric data for the word "cage".  The first column is the frame number, the second is the energy level the third column is the pitch period, and the remaining columns are the reflection coefficients going from K1 to K10 starting from the left going to the right.  The bottom set of data is the final packed data for the encoded word.</para><para id="eip-401">I have taken the first five frames of data from Figures 2 and 3 and put them in Table 1.  It will be easier to see the data and explain the process using this table rather than attempting to work through the hand written figures.</para><table id="eip-212" summary="First 6 frames from figures 1 and 2"><title>First 6 frames from figures 1 and 2</title>
+<tgroup cols="14"><tbody>
+		<row>
+			<entry>Frame</entry>
+			<entry>Energy</entry>
+			<entry>Rpt</entry>
+			<entry>Pitch</entry>
+			<entry>K1</entry>
+			<entry>K2</entry>
+			<entry>K3</entry>
+			<entry>K4</entry>
+			<entry>K5</entry>
+			<entry>K6</entry>
+			<entry>K7</entry>
+			<entry>K8</entry>
+			<entry>K9</entry>
+			<entry>K10</entry>
+		</row>
+		<row>
+			<entry>8</entry>
+			<entry>1001</entry>
+			<entry>0</entry>
+			<entry>00000</entry>
+			<entry>10101</entry>
+			<entry>10110</entry>
+			<entry>0110</entry>
+			<entry>0110</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+		</row>
+		<row>
+			<entry>9</entry>
+			<entry>0110</entry>
+			<entry>1</entry>
+			<entry>00000</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+		</row>
+		<row>
+			<entry>10</entry>
+			<entry>0110</entry>
+			<entry>1</entry>
+			<entry>00000</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+		</row>
+		<row>
+			<entry>11</entry>
+			<entry>1101</entry>
+			<entry>0</entry>
+			<entry>01010</entry>
+			<entry>10010</entry>
+			<entry>10000</entry>
+			<entry>0101</entry>
+			<entry>0101</entry>
+			<entry>0110</entry>
+			<entry>1011</entry>
+			<entry>1010</entry>
+			<entry>101</entry>
+			<entry>011</entry>
+			<entry>010</entry>
+		</row>
+		<row>
+			<entry>12</entry>
+			<entry>1101</entry>
+			<entry>1</entry>
+			<entry>01011</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+			<entry>-</entry>
+		</row>
+		<row>
+			<entry>13</entry>
+			<entry>1101</entry>
+			<entry>0</entry>
+			<entry>01100</entry>
+			<entry>10110</entry>
+			<entry>10001</entry>
+			<entry>0111</entry>
+			<entry>0100</entry>
+			<entry>0000</entry>
+			<entry>1010</entry>
+			<entry>1011</entry>
+			<entry>110</entry>
+			<entry>100</entry>
+			<entry>011</entry>
+		</row>
+	</tbody>
+ 
+
+
+
+
+</tgroup>
+</table><para id="eip-633">Notice that frames 8 - 10 are unvoiced with frames 9 and 10 being repeated copies of frame 8.  The "1" in frames 9 and 10 indicate that they are repeated frames.  Frames 11 - 13 are voiced frames.  Frame 12 is a repeat frame.  Referring back to figure 1 you can see that an unvoiced frame (frame 8) only has the first four reflection coefficients (K1 - K4), where a voiced frame has all ten coefficients (frames 11 and 12).  In all cases the repeat frame has no coefficients and the repeat flag is set to a "1".</para><para id="eip-818">The process consists of several steps</para><list id="eip-463" list-type="enumerated" number-style="arabic" class="stepwise"><item>Encode the parameters into binary</item>
+<item>Repack the binary numbers into hexadecimal</item>
+<item>Bit reverse each hexadecimal number</item>
+<item>Reverse the order for each pair of hexadecimal numbers</item></list><para id="eip-536">If I take the binary sequence for Frames 8 through 13 I get this sequence of bits:</para><para id="eip-230">1001 0 00000 10101 10110 0110 0110 . 0110 1 00000 . 0110 1 00000 . 1101 0 01010 10010 10000 0101 0101 0110 1011 1010 101 011 010 . 1101 1 01011 . 1101 0 01100 10110 10001 0111 0100 0000 1010 1011 110 100 011</para><para id="eip-704">Notice that I have inserted a "." to separate each of the frame sequences and have used a blank to separate the 13 parameters within each frame. The next task is to reformat the bits into hexadecimal.  the bits for each hexadecimal number are shown in parenthesis below:  </para><para id="eip-235">(1001) (0 000)(00 10)(101 1)(0110) (0110) (0110) . (0110) (1 000)(00 . 01)(10 1 0)(0000) . (1101) (0 010)(10 10)(010 1)(0000) (0101) (0101) (0110) (1011) (1010) (101 0)(11 01)(0 . 110)(1 1 01)(011 . 1)(101 0) (0110)(0 101)(10 10)(001 0)(111 0)(100 0)(000 1)(010 1)(011 1)(10 10)(0 011) [1011]
+
+</para><para id="eip-890">I have put brackets around the last nibble to indicate that it came from frame 14.  It was necessary to create an even number of nibbles so that the process could be completed on this example.  Now that the binary sequence has been organized into nibbles, I can use Table 2 to convert the nibbles into hexadecimal.</para><table id="eip-479" summary="Hexadecimal table"><title>Hexadecimal table</title>
+<tgroup cols="4"><tbody>
+  <row>
+    <entry>Decimal</entry>
+    <entry>Binary</entry>
+    <entry>Hexadecimal</entry>
+    <entry>Bit Reversed</entry>
+  </row>
+  <row>
+    <entry>0</entry>
+    <entry>0000</entry>
+    <entry>0</entry>
+    <entry>0</entry>
+  </row>
+  <row>
+    <entry>1</entry>
+    <entry>0001</entry>
+    <entry>1</entry>
+    <entry>8</entry>
+  </row>
+  <row>
+    <entry>2</entry>
+    <entry>0010</entry>
+    <entry>2</entry>
+    <entry>4</entry>
+  </row>
+  <row>
+    <entry>3</entry>
+    <entry>0011</entry>
+    <entry>3</entry>
+    <entry>C</entry>
+  </row>
+  <row>
+    <entry>4</entry>
+    <entry>0100</entry>
+    <entry>4</entry>
+    <entry>2</entry>
+  </row>
+  <row>
+    <entry>5</entry>
+    <entry>0101</entry>
+    <entry>5</entry>
+    <entry>A</entry>
+  </row>
+  <row>
+    <entry>6</entry>
+    <entry>0110</entry>
+    <entry>6</entry>
+    <entry>6</entry>
+  </row>
+  <row>
+    <entry>7</entry>
+    <entry>0111</entry>
+    <entry>7</entry>
+    <entry>E</entry>
+  </row>
+  <row>
+    <entry>8</entry>
+    <entry>1000</entry>
+    <entry>8</entry>
+    <entry>1</entry>
+  </row>
+  <row>
+    <entry>9</entry>
+    <entry>1001</entry>
+    <entry>9</entry>
+    <entry>9</entry>
+  </row>
+  <row>
+    <entry>10</entry>
+    <entry>1010</entry>
+    <entry>A</entry>
+    <entry>5</entry>
+  </row>
+  <row>
+    <entry>11</entry>
+    <entry>1011</entry>
+    <entry>B</entry>
+    <entry>D</entry>
+  </row>
+  <row>
+    <entry>12</entry>
+    <entry>1100</entry>
+    <entry>C</entry>
+    <entry>3</entry>
+  </row>
+  <row>
+    <entry>13</entry>
+    <entry>1101</entry>
+    <entry>D</entry>
+    <entry>B</entry>
+  </row>
+  <row>
+    <entry>14</entry>
+    <entry>1110</entry>
+    <entry>E</entry>
+    <entry>7</entry>
+  </row>
+  <row>
+    <entry>15</entry>
+    <entry>1111</entry>
+    <entry>F</entry>
+    <entry>F</entry>
+  </row>
+</tbody>
+
+</tgroup>
+</table><para id="eip-789">In hexadecimal it would look like:       90             2B           66             66              81               A0              D2            A5            05            56
+     BA             AD              6D               7A             65           A2              E8           15            7A            3D</para><para id="eip-864">Bit reversed would look like:  90 4D 66 66 18 50 B4 5A 0A A6 D5 5B 6B E5 6A 54 71 8A E5 CB</para><para id="eip-33">Finally doing a pair wise nibble switch it would look like:  09 D4 66 66 81 05 4B A5 A0 6A 5D B5 B6 5E A6 45 17 A8 5E BC</para><para id="eip-116">If this sequence is compared to the bottom data set of Figure 4 it will be comforting to see them identical.  Obviously we could have completed the whole word to verify that all of works.  But, then, that is what Figures 2 and 3 attempted to do.</para><para id="eip-27">You may notice that I have ignored the creation of and use of the encode and decode tables.  These tables were created based on a specific professional speaker.  For each of the coefficients a test data set was used to reduce all of the variations to a set of buckets.  For example with K1 where there are five bits to define the value of the coefficient, the data set was split into 32 buckets ranging from the largest to the smallest.  A median point was selected to be the value used for the decoder.  As this was specific to each professional speaker and therefore to each version of the TMS028x it will not be presented.  That part of the process is left to the student to figure out.  And, yes, you may have noted that I didn't disclose how the spelling of the words was packed into the ROM along with the speech data.  Another aspect left to the student to figure out.</para></content>
+
+</document>

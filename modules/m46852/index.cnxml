@@ -1,0 +1,82 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>Looking Back</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m46852</md:content-id>
+  <md:title>Looking Back</md:title>
+  <md:abstract>The Speak N Spell was the beginning of significant changes in society and our lives.  Many of the gadgets we now can not live without have an ancestry that traces back to the Speak N Spell. This final chapter in the book on the Speak N Spell will attempt to show the connection and the extent of the impact.</md:abstract>
+  <md:uuid>0891732d-98dd-4873-b20a-36f7cc42f364</md:uuid>
+</metadata>
+
+<content>
+	<section id="eip-1000"><title>Introduction</title>
+	
+    <para id="import-auto-id1172317832861">The success of the Speak N Spell is not the end of this story. It became a very successful product along with several other follow on products from Texas Instruments' Educational Products group:</para><list id="import-auto-id1172313126185" list-type="bulleted"><item>Speak &amp; Math™</item>
+      <item>Speak &amp; Read™</item>
+      <item>Speak &amp; Spell in French, German, Spanish and British</item>
+      <item>Touch &amp; Tell™</item>
+      <item>Magic Wand Speaking Reader™</item>
+      <item>The Language Translator</item>
+      <item>The TI99/4A Home Computer Text to Speech System</item></list><para id="import-auto-id1172313502942">All of these products had various succeses in the world of education.  Figure 1 shows several of the Educational Products that were created by Texas Instruments during the late 1970's and early 1980's.</para><figure id="import-auto-id1172313147653"><media id="import-auto-id1172313293490" alt="">
+        <image mime-type="image/jpg" src="../../media/Picture 0.jpg" height="478" width="624"/>
+      </media>
+    <caption>Several of the Learning Aids we Created in the Educational Products Business Unit.</caption></figure></section>
+	<section id="eip-1001"><title>The Real Success</title>
+
+    <para id="import-auto-id1172318892755">But the real success was in the world of technology.  We had created the first single chip Digital Signal Processing device.  As explained earlier, an assumed impossible task at the time.  It seemed to be an “aha” moment in technology that can be summarized as “if DSP can be used in a toy, where else could we use it?”  (I can call it a toy now but couldn’t when we first introduced the speaking products.  They were “educational products” or “Learning Aids”, but never a toy.)</para><para id="import-auto-id1172313775649">We, in the Educational Products Business Unit, immediately began the architectural development of a second generation DSP device to handle additional features that our end users were asking for. That was for the product to have user selected vocabularies and for the student to verbally enter the spelling of the word. That meant a Text to Speech capability and speech recognition.</para><para id="import-auto-id1172313289429">What really happened was that, while in the Educational Products business unit, while we were designing this next generation device, in parallel our Semiconductor Products business unit was designing a programmable DSP device to pursue the same markets. One of the reasons for this second effort in the Semiconductor Products business unit was the simple fact that we, in the Educational Products business unit, refused to let them have our Speak N Spell synthesizer.</para><para id="import-auto-id1172313702441">When all of the politics had settled, the only device remaining was the one being designed in the Semiconductor Business Unit and the Speak N Spell Speech Synthesis device was available for them to sell. Our team in the Educational Products Business Unit had to kill our device and eventually the whole design team was moved to the Semiconductor Business Unit, including the Educational Product speech research team. It was the end of the era for the Educational Products Business unit as it eventually was sold off to Tiger Toys.</para><para id="import-auto-id1172313560220">But not all is bad news.  Several of us were moved to the Semiconductor Business unit to help start up the new, fledgling DSP business.  Our task was to help roll out the device the Semiconductor Business unit had been designing, the TMS32010.</para>
+    <para id="import-auto-id1172313148677">Of the four original members of the team, I was the only one who was still part of the business unit and therefore moved to the Semiconductor Business Unit to support the TMS32010 product introduction.  By this time (late 1983) Paul had been moved to another division, Larry had been transferred to our Nice, France organization and Richard was on to the next topic of research.</para>
+    <para id="import-auto-id1172313129087">Since then the four of us have gotten together several times to talk about this important moment in our careers and the impact it has made.</para>
+    </section>
+	<section id="eip-1002"><title>And it Continues</title>
+
+	<para id="import-auto-id1172313489497">As I look back over the last many years since we introduced the Speak N Spell, I am amazed on the extent of the impact that "aha" moment has made.  Within a year of the introduction of the Speak N Spell and its speech synthesis device, a rush of DSP devices began to be introduced:</para><table id="eip-786" summary="Introduction of DSPs">
+<tgroup cols="3"><tbody>
+  <row>
+    <entry><emphasis effect="bold">Product</emphasis></entry>
+    <entry><emphasis effect="bold">Company</emphasis></entry>
+    <entry><emphasis effect="bold">Year</emphasis></entry>
+  </row>
+  <row>
+    <entry>TMC0280</entry>
+    <entry>Texas Instruments</entry>
+    <entry>1978</entry>
+  </row>
+  <row>
+    <entry>2920</entry>
+    <entry>Intel</entry>
+    <entry>1979</entry>
+  </row>
+  <row>
+    <entry>S28211</entry>
+    <entry>Advanced Microsystems Intl.</entry>
+    <entry>1979</entry>
+  </row>
+  <row>
+    <entry>DSP-1</entry>
+    <entry>ATT Bell Labs</entry>
+    <entry>1980</entry>
+  </row>
+  <row>
+    <entry>uPD7720</entry>
+    <entry>NEC</entry>
+    <entry>1980</entry>
+  </row>
+  <row>
+    <entry>TMS32010</entry>
+    <entry>Texas Instruments</entry>
+    <entry>1982</entry>
+  </row>
+</tbody>
+
+
+
+
+</tgroup><caption>Early DSP Chip History (with permission from Forward Concepts)</caption>
+</table><para id="eip-420">We can now look back and see some of the results of these devices we call Digital Signal Processors and the signal processing theory behind them. Many of the products we can no longer live without, can be traced back to early products and finally back to the Speak N Spell. Some more recent products include:</para><list id="import-auto-id1172313775035" list-type="bulleted"><item>Digital audio</item>
+      <item>Digital Telephony, Both Wired and Wireless</item>
+      <item>Digital Cameras</item>
+      <item>Digital TV</item>
+      <item>The Cloud</item>
+    </list><para id="import-auto-id1172313799869">But the innovation is just beginning. As Dr. Alan Oppenheim, a professor at MIT, explained to me when I asked him if the era of DSP was coming to an end, "Gene, there will always be signals in the world and we will always want to process them. Therefore there will always be a need for Digital Signal Processing."
+</para><para id="eip-831">There are still many stories that could be told, and many new products to be created, using DSP technology, that will some day be ones we can't live without. I will end here with one last comment: "I may be overstepping my bounds with the stories I have told about the development of the Speak N Spell and the DSP era it started, but, then I’m allowed, just as a proud father is allowed to brag about his children."</para></section>
+</content>
+</document>

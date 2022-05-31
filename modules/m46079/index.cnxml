@@ -1,0 +1,247 @@
+<document xmlns="http://cnx.rice.edu/cnxml">
+  <title>How the Speak N Spell Worked</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml">
+  <md:content-id>m46079</md:content-id>
+  <md:title>How the Speak N Spell Worked</md:title>
+  <md:abstract>The key to the Speak N Spell actually working the way it had to was the speech synthesis.  At the time the program started it was considered an impossible task at any level of technology, not to speak of a "toy".  But putting the heads together of two technologists, Richard Wiggins and Larry Brantingham, the appropriate compromises were made to give voice to the product.</md:abstract>
+  <md:uuid>f220056c-e0f3-419f-87b2-7b9de9a621c6</md:uuid>
+</metadata>
+
+<content>
+    <section id="eip-400"><title>Introduction</title>
+    <para id="import-auto-id1166716531258">The state of the art for implementing real time speech synthesis in a single IC was well defined – it was impossible. These claims were based on the use of the higher performance IC technology known as NMOS. All we had available to us in TI’s Consumer Group was lower performance, much cheaper IC technology, known as PMOS. To no surprise, PMOS was significantly slower than NMOS. But, when all was accomplished, the collaborative effort of Richard and Larry, got the LPC-10 speech synthesis algorithm running using PMOS. What follows in this chapter is a summary of the tradeoffs and compromises made in order to make the Speak N Spell happen.</para><para id="import-auto-id1166736659324">A quick summary of the compromises:</para><list id="import-auto-id1166726855779" list-type="bulleted"><item>Sample rate</item>
+<item>Frame rate</item>
+<item>Multiplier size and data word size</item>
+<item>Number of coefficients</item>
+<item>Bits assigned to each coefficients</item>
+<item>Other tricks</item>
+
+    </list><para id="import-auto-id1166753701548">Before discussing the compromises and tradeoffs, it is best to do a quick introduction the concept of LPC here.</para>
+	</section>
+	    <section id="eip-401"><title>Linear Predictive Coding</title>
+    <para id="import-auto-id1166751493192">After some discussions and analysis (see Richard Wiggins Engineering notebook in Appendix 2) we settled on linear predictive coding.  </para><para id="import-auto-id1166758097249">Appendix 2 is Richard’s complete set of entries into his Engineering Notebook on the Speak N Spell. Here is an excerpt from page 3 of Richard’s Engineering Notebook that does a good job of summarizing his thought process.</para><para id="import-auto-id1166752006220">“The term linear predictive coding (LPC) refers to the highly successful representation of a human speech waveform as the output of an all-pole filter excited by either periodic pulses (for voiced speech) or by white noise (for unvoiced speech). In these systems, the compressed parameters are the filter coefficients (usually 10 or 12 numbers) and the excitation description (energy level, voiced/unvoiced parameter, and if voiced, a pitch period). This technique has had much recent success in communications systems where good quality speech transmission has been demonstrated at 2400 bits/second. In such systems, the LPC parameters are determined from segments or “frames” of digitized speech, usually about 20 milliseconds in length. Hence a description of the waveform is sent about 50 times a second, with each description being about 48 bits in length.”</para><para id="import-auto-id1166752096957">The particular solution was called LPC-10 as it had ten coefficients. This was determined to be sufficient for our 8kHz sample rate. As I remember, the reasoning for 10 coefficients was that the number of coefficients for LPC needed to be the sample rate (in kHz) plus two. In this case 8 + 2 = 10. I also seem to remember another reason for 10 coefficients, the idea of needing two coefficients for each formant and two more for the general form of the speech envelope. Figure 1 shows the simplified block diagram for the synthesis algorithm. There were two inputs to the actual filter:</para><list id="import-auto-id1166736426832" list-type="bulleted"><item>Excitation signal:  White noise for an unvoiced sound and a periodic pulsed signal for voiced sounds</item>
+<item>An energy level for the sound</item>
+    </list><para id="import-auto-id1166735258389">The filter then used the coefficients to adjust the filter such that it modified the sound created by the white noise or pulses to synthesize the original sound.  These coefficients, excitation signals and energy level were introduced to the synthesizer every 20 mSec and were internally updated every 5 mSec, based on the present values and the next set of target coefficients. </para><para id="eip-462"><figure id="blockDiagramSpeechSynthesizer">
+<media id="import-auto-id2828532" alt="">
+        <image mime-type="image/jpg" src="../../media/LPC vocal tract model.jpg" height="250" width="350"/>
+      </media>
+  <caption>
+     Simplified block diagram of the speech synthesizer.
+  </caption>
+</figure></para><para id="import-auto-id1166738118914">All together there were 13 parameters in each frame of data:</para>
+    <list id="import-auto-id1166736673859" list-type="bulleted"><item>Energy</item>
+<item>Pitch period</item>
+<item>Repeat indicator</item>
+<item>10 Reflection coefficients (K1 - K10)</item></list><para id="import-auto-id1166741913855">The speech data was packed in a variable word size. Table 1 shows the bit assignment for each of the coefficients and the order in which they were packed.</para><table id="eip-992" summary="Description of coefficients">
+<tgroup cols="3"><tbody>
+  <row>
+    <entry><emphasis effect="bold">Coefficient</emphasis></entry>
+    <entry><emphasis effect="bold">Bits*</emphasis></entry>
+    <entry><emphasis effect="bold">Comment</emphasis></entry>
+  </row>
+  <row>
+    <entry>Energy</entry>
+    <entry>4</entry>
+    <entry>Fh indicates the end of the phrase</entry>
+  </row>
+  <row>
+    <entry>Repeat</entry>
+    <entry>1</entry>
+    <entry>If "1" use the previous K values</entry>
+  </row>
+<row>
+    <entry>Pitch Period</entry>
+    <entry>5</entry>
+    <entry>If "0" unvoiced - only K1 - K4 used</entry>
+  </row>
+<row>
+    <entry>K1</entry>
+    <entry>5</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K2</entry>
+    <entry>5</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K3</entry>
+    <entry>4</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K4</entry>
+    <entry>4</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K5</entry>
+    <entry>4</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K6</entry>
+    <entry>4</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K7</entry>
+    <entry>4</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K8</entry>
+    <entry>3</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K9</entry>
+    <entry>3</entry>
+    <entry/>
+  </row>
+<row>
+    <entry>K10</entry>
+    <entry>3</entry>
+    <entry/>
+  </row>
+</tbody>
+
+
+
+
+
+
+
+
+</tgroup><caption>Description of coefficients *These bits are expanded to 10 bits for use in the synthesis filter</caption>
+</table><para id="import-auto-id1166714392874">The reasoning behind the variation in bits per reflection coefficients has to do with the part of the human vocal tract each coefficient represents. K1 can be thought of as representing the lips, K2 the teeth, and so on where K10 represents the back of the throat. The teeth and lips have more movement than the back of the throat and therefore have more bits assigned to them.</para><para id="import-auto-id1166720191573">The actual coefficients in the synthesizer were 12 bits in size. For K1 there were 32 different 12 bit coefficients mapped to the 5 bit data word stored in the ROM. This mapping was done for the specific professional speaker we had hired to speak the words. Since we were using an “analysis/synthesis” technique, it was possible to analyze the complete data set of spoken words and use the statistics from all of the frames of data for the K1 values to create the best 32, 12-bit coefficients to represent the whole spread of the values (we called them buckets) to represent the data set. Once the range of the values for each bucket was determined, a median value was assigned to represent all of the values within the bucket. The same occurred for each of the other coefficients including the Energy and Pitch Period. The synthesis device (TMC0281) stored the decoding table for the reflection coefficients. The last digit of the part number, a 1 in the case of the Speak N Spell, identified the decoding table used. That is, it is specific to the voice of the professional speaker. </para><para id="import-auto-id1166727021826">This meant that the number of bits per frame went from 4 to 49 as in Table 2.</para><table id="eip-982" summary="Frame Description">
+<tgroup cols="3"><tbody>
+  <row>
+    <entry><emphasis effect="bold">Frame</emphasis></entry>
+    <entry><emphasis effect="bold">Bits</emphasis></entry>
+    <entry><emphasis effect="bold">Coefficients used</emphasis></entry>
+  </row>
+  <row>
+    <entry>Voiced</entry>
+    <entry>49</entry>
+    <entry>E, R, P, K1 - K10</entry>
+  </row>
+  <row>
+    <entry>Voiced Repeated</entry>
+    <entry>10</entry>
+    <entry>E, R, P</entry>
+  </row>
+ <row>
+    <entry>Unvoiced</entry>
+    <entry>28</entry>
+    <entry>E, R, P, K1 - K4</entry>
+  </row>
+ <row>
+    <entry>Unvoiced Repeated</entry>
+    <entry>10</entry>
+    <entry>E, R, P</entry>
+  </row>
+ <row>
+    <entry>End of Phrase</entry>
+    <entry>4</entry>
+    <entry>E</entry>
+  </row>
+</tbody>
+
+
+
+</tgroup><caption>Frame Description</caption>
+</table><para id="import-auto-id1166735285754">If you do the math you’ll note that sending only voiced frames gives slightly over 2400b/s data rate. But it seemed that generally the best quality for this particular implementation of LPC-10 was approximately 1000b/s.</para><para id="import-auto-id1166741723585">Figures 2 and 3 show a couple of examples of the data for each speech frame for two spoken words.  The word in Figure 2 is “help” and the word in Figure 3 is “free”.</para>
+    <para id="import-auto-id1166721992243">If you look closely at the speech data for the word “help” you will notice that, for a particular voiced sound, the value for each reflection coefficient (K’s) of each frame varies somewhat from those of the neighboring frames. With hand editing by an expert ear, many of these frames could be replaced by one of its neighboring frame’s data (see frames 8, 9 and 10 in Figure 2). If frames could have their K values replaced with those of an appropriately chosen frame, a repeat frame could be used – therefore, 10 bits could represent the frame rather than 48 bits for a voiced frame or 28 bits for an unvoiced frame. Figure 3b shows repeat frames for the synthesized word “free”.</para><para id="import-auto-id1166718747685">The idea of repeat frames giving better quality became obvious to me as I was editing the spoken phrase “Texas Instruments”. I had trouble making the word “Texas” sound correct. I finally slowed the word down and realized that the “eh” vowel sound (in the word Texas) had been turned into a diphthong (two different sounds) giving a vowel sound of “aa – eh”. This should have been expected as the professional speaker was a Texan with a good Texas accent (I’ll tell other stories about the issues we had with a Texas accent later). What was amazing was that I could take any one of the 8 or so frames and repeat it through and make the sound of the word “Texas” better. What I was doing was reducing the string of vowel sounds to just one. This edit gave a better quality at a lower bit rate.</para><para id="eip-395"><figure id="coefficientsHelp">
+<media id="import-auto-id1166744727986" alt="">
+        <image mime-type="image/jpg" src="../../media/graphics2-949e.jpg" height="383" width="372"/>
+      </media>
+  <caption>
+     Coefficients for the word "help" before compression.
+  </caption>
+</figure></para><para id="eip-519"><figure id="spectralSpeechFree">
+<subfigure id="spectralFree">
+<media id="import-auto-id1166725481454" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics3-46e2.jpg" height="196" width="240"/>
+        </media>
+<caption>
+The spectral graph of the word Free before and after data compression. 
+  </caption>
+</subfigure>
+<subfigure id="speechFree">
+<media id="import-auto-id1166717381925" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics4-7774.jpg" height="198" width="236"/>
+        </media>
+<caption>
+The speech data for the word “Free” after compression. Note that the data rate after compression is 775b/s.
+  </caption>
+</subfigure>
+</figure></para><para id="import-auto-id1166736436518">I've attached an appendix (Appendix 3) for those who would like to know how the speech data was formatted in the ROM. It is not a topic I thought would fit well into this chapter, but one which would be interesting to some readers. With all of this as background, let’s now discuss some of the compromises we made in a bit more detail.</para>
+</section>
+	    <section id="eip-410"><title>Sample Rate</title>
+    <para id="import-auto-id1166716132987">The sample rate determined the frequency response of the sound output. The higher the sample rate the better the sound would be, particularly for the unvoiced sounds. But the higher the sample rate, the higher the data rate. Although it can be argued that this is not necessarily the case, we understood that there needed to be more reflection coefficients to capture the data properly at a higher sample rate. It seemed to follow a rule of sample rate plus two to determine the number of reflection coefficients. We didn’t have time to evaluate this rule so we chose to use the simpler solution of ten coefficients, sampling at 8kHz.</para><para id="import-auto-id2423540">At the time we began to find the professional speaker for the product, we noticed that not everyone had an “LPC friendly” voice.  One of the early speakers we looked at was marvelous at doing character voices.  We used him to give a voice to several of the options we had for the final name of the product.  Here are a few of those choices:</para>
+    <list id="eip-827"><item>Wordy Birdy</item>
+<item>Talking Typewriter</item>
+<item>Spelling Bee</item>
+<item>Franken-speller (my favorite)</item>
+<item>Robot</item>
+</list><para id="import-auto-id1166718062694">We were amazed how well he could put a voice to the various characters for the focus groups and management demonstrations. However, the professional speaker who could do all of the character voices was not LPC friendly so we could not use him for the final product. Figure 4 shows several of the product concepts. Unfortunately I lost the concept drawing for the Franken-speller.</para><para id="eip-620"><figure id="ConceptDrawing" orient="horizontal">
+   <subfigure id="spellingBee">
+<media id="import-auto-id1166724898468" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics5-b6ae.jpg" height="200" width="200"/>
+        </media>
+<caption>Spelling Bee</caption>
+</subfigure>
+   <subfigure id="talkingTypewriter">
+<media id="import-auto-id2784500" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics6.jpg" height="150" width="200"/>
+        </media>
+<caption>Talking Typewriter</caption>
+</subfigure>
+   <subfigure id="wordyBirdie">
+<media id="import-auto-id1166742597312" alt="">
+          <image mime-type="image/jpg" src="../../media/graphics7.jpg" height="150" width="200"/>
+        </media>
+<caption>Wordy Birdie</caption>
+</subfigure>
+<caption>Concept Drawings</caption>
+</figure>
+</para><para id="import-auto-id1166736413872">Much to our surprise, we found that female voices also did not work at all with our synthesizer. We did, however, finally find a good LPC friendly voice in the Dallas area. But before we proceeded we did a quick market survey among children as to their preference of gender in synthetic voice. We found that a male voice would be acceptable to both boys and girls.  This may have been our greatest technical hurdle of the program.</para><para id="import-auto-id1166736935572">Later in the program, as we were qualifying the spoken words for the product we came across several issues as a result of the speech quality that I will assign to the decisions we made on sample rates. As I said earlier we chose to use an 8kHz sample rate which was fine for capturing the formants in a voiced sound. But it didn’t do so well with many unvoiced sounds that have the bulk of their information in the 2kHz to 6kHz frequency band. We could only capture frequencies less than 4kHz. In fact, as it worked out, we had a cut off at about 3.4kHz, but I’ll talk about that later, when I talk about the output speaker and power amplifier.</para><para id="import-auto-id1166736424763">Specifically the unvoiced sounds f, s, t, p, h, sh, were sometimes misinterpreted as one of the others.  Here are some examples:</para>
+    <list id="eip-815"><item>The word “four” was easily misunderstood for “hore” if not spoken in context. We needed to keep the number “four” but chose not to use any of its homonyms in the vocabulary list (e.g., for, fore).</item>
+<item>In a later product we realized that “p” and “t” could be misunderstood causing a specific problem with the word “ship”. We ended up canceling the product because of this issue.</item>
+<item>Other words like “ditch”, “sheet”, . . .</item></list><para id="import-auto-id1166717462684">One of the games on the final product was created for this very concern – the “Say it” mode. We concluded that it would be wise to have a mode where the child could hear the word while looking at the spelling in hopes that when the word was spoken in the “Spell it” mode it could be easily correlated to one of the spelling words seen in the “Say it” mode. We later found out that this was liked by educators as it allowed the child to relate spoken words to written words.</para><para id="eip-684">While I’m on this subject, I will relay a quick story. After the Speak N Spell had been introduced, I was told that one of our Board Members said “I guess this is adequate speech quality for the initial product. But if any of the add on modules have this bad quality, we need to take the whole team, line them up in front of Neiman Marcus and shoot them.” As I didn’t actually hear this myself, it is just a good story to tell. And, yes, we did do follow on modules and products. The quality obviously improved as not one of us was shot in front of Neiman Marcus.</para>
+</section>
+	    <section id="eip-402"><title>Voicing Decisions</title>
+
+    <para id="eip-876">Determining where a sound was voiced or unvoiced was not always an easy task. We had also compounded any error made by removing six of the reflection coefficients for an unvoiced sound. To keep the vocal tract model simple, Richard chose to have either voiced or unvoiced excitation but not both together. This design choice made some of the voiced consonants a bit tricky if they require both voiced and unvoiced excitation at the same time. But these errors were fixed by post editing of the synthesized word.</para><para id="import-auto-id1166738561941">We developed an editing station that allowed us to listen to each word frame by frame. With this capability we could fix voicing decisions by changing the frame from a voiced frame to an unvoiced frame or vice versa. If that didn’t solve the problem we had two additional methods. One was to find a similar word and capture the good frames from it and copy them over to the word we were working on. If that didn’t work the last resort was to have the professional speaker say the word again and hope it was better. With experience we learned to have the professional speaker say each word in the vocabulary three times. Yes, the expedient solution to the problem.</para><para id="import-auto-id1166730394031">Initially we did the editing - we, meaning our engineering team. This slowed us down quite a bit as the engineers were prone to rewrite portions of the editing software rather than edit the words. We were also doing foreign languages and needed our editors to be experts in those languages. The answer was to hire linguists to do the editing and put the engineers back to work designing the product. Amazingly, it took a bit of effort to get the linguists comfortable with the editing process. The editing was done on a mini-computer with the linguists sitting at a monitor and keyboard doing the editing. One day I saw one of the linguists carefully typing on the keyboard. I stopped her (it happened to be one of the women) and asked what was the problem. She said that she was afraid she would break the computer. I pointed to the engineers sitting near the editing station and said “see those engineers over there? They are waiting for you to break the computer so they can fix it. So, it’s ok to break it.” The reason the engineers were anxious to fix it was they were instructed not to play with the editing station or software unless there was a problem. That seemed to fix the issue and editing got on its way.</para>
+    </section>
+	    <section id="eip-403"><title>Limit Cycles</title>
+
+	<para id="import-auto-id1166729259935">Limit cycles began to plague us as we began to produce the vocabulary words. They were caused by some of the data word length decisions we had made for the synthesizer. It would show up as audible tones when the word or phrase was synthesized. Once again they were fixed in the post editing of the processed words. Initially we used the repeat option to try to eliminate the frame that was causing the issue. Later on one of our linguists found a magic frame that could be added at any point in the phrase which would eliminate the effect of the limit cycles. As I remember, they were his secret and advantage in the editing process.</para>
+</section>
+	    <section id="eip-404"><title>D/A and Output Drive</title>
+	
+	<para id="import-auto-id1166731073000">The output of the synthesizer required a digital to analog converter (D/A), an anti-aliasing filter and amplifier.  All of these components needed to be integrated onto the synthesis device to keep the cost down.  What we chose to do was to create a current summing, sign/magnitude 8 bit D/A.  With this output it was easy to integrate on the device an amplifier circuit such that we effectively got two times the rail voltage to drive to the speaker.  At this point you should note that we didn’t integrate the anti-aliasing filter onto the device, nor did we include one externally.  The first time I told Richard that I was not going to use an anti-aliasing filter in the design, he got a bit irritable and accused me of not understanding how a Digital Signal Processing system worked.  It took quite a bit of discussion and then a demonstration to show that I knew what I was doing.  I had decided that the anti-aliasing filter came free with a cheap speaker.</para>
+    <para id="import-auto-id1748143">The speaker I chose was a $0.50 two inch speaker that had a frequency bandwidth of 300 Hz to 3.3KHz.  It also had a very nice roll off at 3.3KHz.  In my discussion with the speaker vendor, I told them that if they ever sent me a speaker with a better frequency response than the specification I would send it back.  I truly needed all of the “features” of a cheap speaker to make the system cost effective.</para>
+    </section>
+	    <section id="eip-405"><title>Word Spelling</title>
+
+    <para id="import-auto-id1166736450284">Along with the speech data was the correct spelling of the word being spoken.  Even this aspect of the data was compressed.  Because the alphabet could be completely captured in six bits rather than the normal 8 bit ASCII format, we chose to do just that.  Saving memory was important to us.</para>
+    </section>
+	    <section id="eip-406"><title>Problems with Accents</title>
+    
+    <para id="import-auto-id1166751540294">As I suggested earlier there were many issues that resulted from the compromises we made and the professional speaker we chose to pronounce the words.</para>
+    </section>
+	    <section id="eip-407"><title>Four, For</title>
+
+	<para id="import-auto-id1166743397943">The pronunciations of the words became problematic. TI has a very diverse engineering team. We came from all parts of the US, not to speak of the non-US members. All had a different “correct English dialect”. I was from the midwest (the actual correct dialect), Richard was from Lousiana, Larry was from Arkansas and Paul was from East Texas. What’s worse we were doing the engineering in Lubbock, Texas (the panhandle of Texas). Among us we had five different dialects of the English language (I use dialect here perhaps improperly as it is actually the accents that were different – mostly). Then we had to determine if the product would use an American or a British accent. Our team had expanded by this point to include the linguists, market communications experts and educators. The decision was simple: we would use the standard broadcasting accent used in the US (yes, Midwestern accent) and would chose a dictionary that would be our final authority. Once the decision was made it became easy to overcome disagreements on proper pronunciation of words.</para><para id="import-auto-id1166730679022">This brings me to an interesting discussion Paul and I had over the word four. Paul was raised in a region where the pronunciation of the words “for” and “four” were different. He came to me to point out that the Speak N Spell mispronounced the number “fo-wer”. I replied that it was correctly pronounced. He let me know that it was pronounced differently from the word “for” and that we needed to fix it. As was our practice, I pulled out the dictionary and looked up the two words and pointed out that both had the same phonetic spelling. Paul’s reply was simple, “well the dictionary is wrong”. Before we think badly of Paul, let me explain that we had the same issues with words I grew up with along with words Richard and Larry grew up with. The dictionary was constantly being used to guarantee we had a consistent word pronunciation in the product.</para>
+    </section>
+	    <section id="eip-408"><title>Female versus Male Voice</title>
+	
+	<para id="import-auto-id1166743423497">As I stated earlier, the LPC-10 implementation we used did not synthesize female voices well at all. The technical reason that Richard pointed out was that the spectral lines for a female voice were spread further apart than a male voice. As a result, some of the formants (the envelope made up of the peaks of the spectral lines) of the voiced sounds could be missed. Over the years when I presented this aspect of the Speak N Spell development I would tell the story with a bit of a violation to the theory, but it is always remembered by the audience. Here is how I told it:</para><para id="eip-640">“Because the pitch of a woman’s voice is higher than a man’s voice, the spectral lines are further apart in the frequency domain. Another way of looking at it is that there isn’t as much information in a woman’s voice as there is in a man’s voice, given a constrained bandwidth. Perhaps that is why women talk more than men – trying to make up for the lack of information in their voices.”</para><para id="import-auto-id1166736432929">This explanation always seems to irritate the women in the audience and causes a bit of laughter among the men.  Although it doesn’t accurately explain the reason we couldn’t do female voices, the people in the audience always remembered the explanation.</para>
+    </section>
+	    <section id="eip-409"><title>Conclusion</title>
+    <para id="import-auto-id1166729619921">This section is a good overview of the LPC-10 speech synthesizer we used in the Speak N Spell along with several of the issues we had to overcome with it.  In a later chapter I’ll talk further about some of the issue we faced with a product that talks.</para>
+   </section>
+   </content>
+</document>
